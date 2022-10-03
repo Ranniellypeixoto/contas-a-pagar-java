@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -45,6 +44,19 @@ public class FornecedoresController {
         return ResponseEntity.status(HttpStatus.OK).body(meuFornecedorOpitional.get());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> alterar(@PathVariable(value = "id") Integer id,
+                                                    @RequestBody @Valid FornecedorRequestDto fornecedorRequestDto){
+        Optional<Fornecedor> fornecedorOptional = service.visualizar(id);
+        if (!fornecedorOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado.");
+        }
+        var fornecedor = new Fornecedor();
+        BeanUtils.copyProperties(fornecedorRequestDto, fornecedor);
+        fornecedor.setId(fornecedorOptional.get().getId());
+        //fornecedor.setRegistrationDate(fornecedor.get().getRegistrationDate());
+        return ResponseEntity.status(HttpStatus.OK).body(service.salvar(fornecedor));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> excluir(@PathVariable(value = "id") Integer id){
@@ -52,7 +64,7 @@ public class FornecedoresController {
         if (!meuFornecedorOpitional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado.");
         }
-        service.delete(meuFornecedorOpitional.get());
+        service.excluir(meuFornecedorOpitional.get());
         return ResponseEntity.status(HttpStatus.OK).body("Fornecedor excluído com sucesso.");
     }
 

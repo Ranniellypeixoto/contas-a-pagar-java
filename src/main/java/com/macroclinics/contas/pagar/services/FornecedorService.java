@@ -33,8 +33,17 @@ public class FornecedorService {
     public Optional<Fornecedor> visualizar(Integer id) {
         return fornecedorRepository.findById(id);
     }
+
     @Transactional
-    public void delete(Fornecedor fornecedor) {
+    public void excluir(Fornecedor fornecedor) {
         fornecedorRepository.delete(fornecedor);
+    }
+/*
+    public Optional<Fornecedor> findById(Integer id) {
+        return fornecedorRepository.findById(id);
+    }
+*/
+    public Object salvar(Fornecedor fornecedor) {
+        return fornecedorRepository.save(fornecedor);
     }
 }
