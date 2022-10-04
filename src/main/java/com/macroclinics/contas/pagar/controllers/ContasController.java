@@ -2,8 +2,10 @@ package com.macroclinics.contas.pagar.controllers;
 
 
 import com.macroclinics.contas.pagar.domain.Contas;
+import com.macroclinics.contas.pagar.domain.Fornecedor;
 import com.macroclinics.contas.pagar.domain.dto.ContasRequestDto;
 import com.macroclinics.contas.pagar.services.ContasService;
+import com.macroclinics.contas.pagar.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
