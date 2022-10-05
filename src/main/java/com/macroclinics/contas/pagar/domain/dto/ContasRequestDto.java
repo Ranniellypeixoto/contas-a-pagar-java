@@ -1,6 +1,5 @@
 package com.macroclinics.contas.pagar.domain.dto;
 
-import com.macroclinics.contas.pagar.domain.Fornecedor;
 import lombok.Getter;
 import lombok.Setter;
 

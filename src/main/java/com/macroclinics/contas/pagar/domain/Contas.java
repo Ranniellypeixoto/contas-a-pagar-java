@@ -14,7 +14,7 @@ import java.util.Date;
 public class Contas implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
     private Date dataCompetencia;
@@ -29,10 +29,6 @@ public class Contas implements Serializable {
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
-    public void setFornecedor(Integer fornecedorId) {
-        this.id = fornecedorId;
-    }
-
 
 }
 

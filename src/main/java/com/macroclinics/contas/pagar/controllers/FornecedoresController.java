@@ -54,7 +54,6 @@ public class FornecedoresController {
         var fornecedor = new Fornecedor();
         BeanUtils.copyProperties(fornecedorRequestDto, fornecedor);
         fornecedor.setId(fornecedorOptional.get().getId());
-        //fornecedor.setRegistrationDate(fornecedor.get().getRegistrationDate());
         return ResponseEntity.status(HttpStatus.OK).body(service.salvar(fornecedor));
     }
 

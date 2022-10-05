@@ -3,9 +3,11 @@ package com.macroclinics.contas.pagar.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Getter
@@ -13,12 +15,10 @@ import java.util.List;
 public class Fornecedor implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     private String nome;
     private String cnpj_cpf;
     private Boolean situacao;
 
-    @OneToMany
-    private List<Contas> contas;
 }

@@ -38,11 +38,7 @@ public class FornecedorService {
     public void excluir(Fornecedor fornecedor) {
         fornecedorRepository.delete(fornecedor);
     }
-/*
-    public Optional<Fornecedor> findById(Integer id) {
-        return fornecedorRepository.findById(id);
-    }
-*/
+
     public Object salvar(Fornecedor fornecedor) {
         return fornecedorRepository.save(fornecedor);
     }

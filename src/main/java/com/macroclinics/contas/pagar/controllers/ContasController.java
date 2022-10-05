@@ -2,10 +2,10 @@ package com.macroclinics.contas.pagar.controllers;
 
 
 import com.macroclinics.contas.pagar.domain.Contas;
-import com.macroclinics.contas.pagar.domain.Fornecedor;
 import com.macroclinics.contas.pagar.domain.dto.ContasRequestDto;
+import com.macroclinics.contas.pagar.domain.dto.FornecedorRequestDto;
 import com.macroclinics.contas.pagar.services.ContasService;
-import com.macroclinics.contas.pagar.services.FornecedorService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,13 +44,27 @@ public class ContasController {
         return ResponseEntity.status(HttpStatus.OK).body(minhaContaOpitional.get());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> alterar(@PathVariable(value = "id") Integer id,
+                                          @RequestBody @Valid FornecedorRequestDto contasRequestDto){
+        Optional<Contas> contasOptional = service.visualizar(id);
+        if (!contasOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fornecedor não encontrado.");
+        }
+        var contas = new Contas();
+
+        BeanUtils.copyProperties(contasRequestDto, contas);
+        contas.setId(contasOptional.get().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(service.salvar(contas));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> excluir(@PathVariable(value = "id")Integer id){
         Optional<Contas> minhaContaOpitional = service.visualizar(id);
         if (!minhaContaOpitional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conta não encontrado.");
         }
-        service.delete(minhaContaOpitional.get());
+        service.excluir(minhaContaOpitional.get());
         return ResponseEntity.status(HttpStatus.OK).body("Conta excluída com sucesso.");
         }
     }

@@ -1,11 +1,14 @@
 package com.macroclinics.contas.pagar.services;
 
 import com.macroclinics.contas.pagar.domain.Contas;
+import com.macroclinics.contas.pagar.domain.Fornecedor;
 import com.macroclinics.contas.pagar.domain.dto.ContasRequestDto;
 import com.macroclinics.contas.pagar.domain.repository.ContasRepository;
+import com.macroclinics.contas.pagar.domain.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +17,8 @@ import java.util.Optional;
 public class ContasService {
     @Autowired
     private ContasRepository contasRepository;
+    @Autowired
+    private FornecedorRepository fornecedorRepository;
 
     public Contas cadastrar(ContasRequestDto request) {
 
@@ -27,7 +32,12 @@ public class ContasService {
         contas.setJuros(request.getJuros());
         contas.setMulta(request.getMulta());
         contas.setValorPago(request.getValorPago());
-        contas.setFornecedor(request.getFornecedorId());
+
+        Fornecedor fornecedor = fornecedorRepository
+                .findById(request.getFornecedorId())
+                .orElseThrow(EntityNotFoundException::new);
+
+        contas.setFornecedor(fornecedor);
 
         return contasRepository.save(contas);
     }
@@ -39,10 +49,13 @@ public class ContasService {
         return contasRepository.findById(id);
     }
     @Transactional
-    public void delete(Contas contas) {
+    public void excluir(Contas contas) {
         contasRepository.delete(contas);
     }
 
+    public Object salvar(Contas contas) {
+        return contasRepository.save(contas);
+    }
 }
 
 
