@@ -1,11 +1,13 @@
 package com.macroclinics.contas.pagar.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,10 +19,13 @@ public class Contas implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
-    private Date dataCompetencia;
-    private Date dataVencimento;
+    @JsonFormat (shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    private LocalDate dataCompetencia;
+    @JsonFormat (shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    private LocalDate dataVencimento;
     private String valor;
-    private Date dataPagamento;
+    @JsonFormat (shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    private LocalDate dataPagamento;
     private String desconto;
     private String juros;
     private String multa;
