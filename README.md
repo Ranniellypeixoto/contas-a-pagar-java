@@ -7,8 +7,6 @@ Possibilita o cadastro de contas vinculadas a fornecedores
 * JPA
 * lombok
 * Swagger
-* Actuator
-* Mockito
 
 ### Arquitetura
 O projeto foi estuturando utilizando camadas de controller, service e repository
@@ -24,3 +22,4 @@ http://localhost:8080/swagger-ui/index.html
 ### TODO
 1. [ ] Configurar o Swagger da API
 2. [ ] Implementar testes unitários utilizando mockito
+3. [ ] Adicionar o Actuador
